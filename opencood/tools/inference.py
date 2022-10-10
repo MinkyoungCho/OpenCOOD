@@ -22,10 +22,11 @@ import matplotlib.pyplot as plt
 
 def test_parser():
     parser = argparse.ArgumentParser(description="synthetic data generation")
-    parser.add_argument('--model_dir', type=str, required=True,
+    parser.add_argument('--model_dir', type=str,
+                        default='v2vnet',
                         help='Continued training path')
-    parser.add_argument('--fusion_method', required=True, type=str,
-                        default='late',
+    parser.add_argument('--fusion_method', type=str,
+                        default='intermediate',
                         help='late, early or intermediate')
     parser.add_argument('--show_vis', action='store_true',
                         help='whether to show image visualization result')
@@ -69,7 +70,7 @@ def main():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     print('Loading Model from checkpoint')
-    saved_path = opt.model_dir
+    saved_path = opt.model_dirbatch_data['ego']
     _, model, _ = train_utils.load_saved_model(saved_path, model)
     model.eval()
 
